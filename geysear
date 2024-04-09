@@ -1,0 +1,25 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Geyser {
+    uint256 public temperature;
+    uint256 public waterLevel;
+
+    event GeyserTurnedOff(string message);
+    event WaterLevelMaxCapacityReached(string message);
+
+    function setTemperature(uint256 _temperature) public {
+        require(_temperature < 50, "The geyser will turn off");
+        temperature = _temperature;
+    }
+
+    function setWaterLevel(uint256 _waterLevel) public {
+        assert(_waterLevel > 10);
+
+        waterLevel = _waterLevel;
+
+        if (_waterLevel == 15) {
+            revert("Geyser has met its max capacity");
+        }
+    }
+}
